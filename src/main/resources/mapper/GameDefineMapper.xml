@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.universe.sjl.dao.GameDefineDAO">
+    <insert id="insertGameDefine">
+        insert into s_game_define (id,
+                                   name,
+                                   create_by,
+                                   create_date,
+                                   update_by,
+                                   update_date,
+                                   cancel_flag,
+                                   summary,
+                                   version_number,
+                                   virtual_type,
+                                   virtual_type_code,
+                                   define_type,
+                                   define_type_code,
+                                   constitution_factor,
+                                   endurance_factor,
+                                   force_factor,
+                                   magic_factor,
+                                   agile_factor,
+                                   moving_speed_factor,
+                                   attack_speed_factor,
+                                   conjure_speed_factor,
+                                   suck_blood_factor,
+                                   critical_rate_factor,
+                                   critical_effectRate_factor,
+                                   resistance_factor,
+                                   durability_factor,
+                                   satiety_degree_factor)
+        values (#{id},
+                #{name},
+                #{createBy},
+                #{createDate},
+                #{updateBy},
+                #{updateDate},
+                #{cancelFlag},
+                #{summary},
+                #{versionNumber},
+                #{virtualType},
+                #{virtualTypeCode},
+                #{defineType},
+                #{defineTypeCode},
+                #{constitutionFactor},
+                #{enduranceFactor},
+                #{forceFactor},
+                #{magicFactor},
+                #{agileFactor},
+                #{movingSpeedFactor},
+                #{attackSpeedFactor},
+                #{conjureSpeedFactor},
+                #{suckBloodFactor},
+                #{criticalRateFactor},
+                #{criticalEffectRateFactor},
+                #{resistanceFactor},
+                #{durabilityFactor},
+                #{satietyDegreeFactor})
+    </insert>
+
+    <update id="updateGameDefineWithCancelFlagById">
+        update s_game_define
+        set cancel_flag = #{cancelFlag}
+        where id = #{id};
+    </update>
+
+    <update id="updateGameDefine">
+        update s_game_define
+        set
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="updateBy != null and updateBy != ''">
+            update_by = #{updateBy},
+        </if>
+        update_date = sysdate,
+        <if test="summary != null and summary != ''">
+            summary = #{summary},
+        </if>
+        <if test="versionNumber != null and versionNumber != ''">
+            version_number = #{versionNumber},
+        </if>
+        <if test="virtualType != null and virtualType != ''">
+            virtual_type = #{virtualType},
+        </if>
+        <if test="virtualTypeCode != null and virtualTypeCode != ''">
+            virtual_type_code = #{virtualTypeCode},
+        </if>
+        <if test="defineType != null and defineType != ''">
+            define_type = #{defineType},
+        </if>
+        <if test="defineTypeCode != null and defineTypeCode != ''">
+            define_type_code = #{defineTypeCode},
+        </if>
+        <if test="constitutionFactor != null and constitutionFactor != ''">
+            constitution_factor = #{constitutionFactor},
+        </if>
+        <if test="enduranceFactor != null and enduranceFactor != ''">
+            endurance_factor = #{enduranceFactor},
+        </if>
+        <if test="forceFactor != null and forceFactor != ''">
+            force_factor = #{forceFactor},
+        </if>
+        <if test="magicFactor != null and magicFactor != ''">
+            magic_factor = #{magicFactor},
+        </if>
+        <if test="agileFactor != null and agileFactor != ''">
+            agile_factor = #{agileFactor},
+        </if>
+        <if test="movingSpeedFactor != null and movingSpeedFactor != ''">
+            moving_speed_factor = #{movingSpeedFactor},
+        </if>
+        <if test="attackSpeedFactor != null and attackSpeedFactor != ''">
+            attack_speed_factor = #{attackSpeedFactor},
+        </if>
+        <if test="conjureSpeedFactor != null and conjureSpeedFactor != ''">
+            conjure_speed_factor = #{conjureSpeedFactor},
+        </if>
+        <if test="suckBloodFactor != null and suckBloodFactor != ''">
+            suck_blood_factor = #{suckBloodFactor},
+        </if>
+        <if test="criticalRateFactor != null and criticalRateFactor != ''">
+            critical_rate_factor = #{criticalRateFactor},
+        </if>
+        <if test="criticalEffectRateFactor != null and criticalEffectRateFactor != ''">
+            critical_effectRate_factor = #{criticalEffectRateFactor},
+        </if>
+        <if test="resistanceFactor != null and resistanceFactor != ''">
+            resistance_factor = #{resistanceFactor},
+        </if>
+        <if test="durabilityFactor != null and durabilityFactor != ''">
+            durability_factor = #{durabilityFactor},
+        </if>
+        <if test="satietyDegreeFactor != null and satietyDegreeFactor != ''">
+            satiety_degree_factor = #{satietyDegreeFactor}
+        </if>
+        where id = #{id}
+    </update>
+
+    <select id="selectGameDefineClassify" resultType="GameDefine">
+        select id                         id,
+               name                       name,
+               create_by                  createBy,
+               create_date                createDate,
+               update_by                  updateBy,
+               update_date                updateDate,
+               cancel_flag                cancelFlag,
+               summary                    summary,
+               version_number             versionNumber,
+               virtual_type               virtualType,
+               virtual_type_code          virtualTypeCode,
+               define_type                definetype,
+               define_type_code           definetypeCode,
+               constitution_factor        constitutionFactor,
+               endurance_factor           enduranceFactor,
+               force_factor               forceFactor,
+               magic_factor               magicFactor,
+               agile_factor               agileFactor,
+               moving_speed_factor        movingSpeedFactor,
+               attack_speed_factor        attackSpeedFactor,
+               conjure_speed_factor       conjureSpeedFactor,
+               suck_blood_factor          suckBlood_Factor,
+               critical_rate_factor       criticalRateFactor,
+               critical_effectRate_factor criticalEffectRateFactor,
+               resistance_factor          resistanceFactor,
+               durability_factor          durabilityFactor,
+               satiety_degree_factor      satietyDegreeFactor
+        from s_game_define
+        where cancel_flag = '1'
+          and define_type = #{defineType}
+        order by create_by asc
+            limit #{start},
+                 #{rows}
+    </select>
+
+</mapper>
